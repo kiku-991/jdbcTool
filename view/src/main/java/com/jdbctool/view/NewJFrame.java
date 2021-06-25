@@ -5,17 +5,23 @@
  */
 package com.jdbctool.view;
 
+import com.jdbctool.model.ConnectionInfo;
+import com.jdbctool.view.util.FileMethod;
+
 /**
  *
  * @author
  */
 public class NewJFrame extends javax.swing.JFrame {
 
+    ConnectionInfo con = new ConnectionInfo();
+
     /**
      * Creates new form NewJFrame
      */
     public NewJFrame() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -31,15 +37,15 @@ public class NewJFrame extends javax.swing.JFrame {
         Output = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        DataBaseTree = new javax.swing.JTree();
         jToolBar1 = new javax.swing.JToolBar();
         AddDataBase = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        FileChoose = new javax.swing.JButton();
         Query = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        ResultTable = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -58,7 +64,10 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("データベース"));
 
-        jScrollPane1.setViewportView(jTree1);
+        DataBaseTree.setFont(new java.awt.Font("MS UI Gothic", 0, 24)); // NOI18N
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        DataBaseTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane1.setViewportView(DataBaseTree);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -87,11 +96,16 @@ public class NewJFrame extends javax.swing.JFrame {
         });
         jToolBar1.add(AddDataBase);
 
-        jButton3.setIcon(new javax.swing.ImageIcon("D:\\java資料\\woofunction-icons\\woofunction-icons\\folder_32.png")); // NOI18N
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton3);
+        FileChoose.setIcon(new javax.swing.ImageIcon("D:\\java資料\\woofunction-icons\\woofunction-icons\\folder_32.png")); // NOI18N
+        FileChoose.setFocusable(false);
+        FileChoose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        FileChoose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        FileChoose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FileChooseActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(FileChoose);
 
         Query.setIcon(new javax.swing.ImageIcon("D:\\java資料\\knob-buttons-toolbar-icons_by_itweek\\32\\Knob-Search-icon.png")); // NOI18N
         Query.setFocusable(false);
@@ -104,7 +118,7 @@ public class NewJFrame extends javax.swing.JFrame {
         });
         jToolBar1.add(Query);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        ResultTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null}
@@ -113,8 +127,8 @@ public class NewJFrame extends javax.swing.JFrame {
                 "タイトル 1", "タイトル 2", "タイトル 3"
             }
         ));
-        jTable1.setComponentPopupMenu(jPopupMenu1);
-        jScrollPane2.setViewportView(jTable1);
+        ResultTable.setComponentPopupMenu(jPopupMenu1);
+        jScrollPane2.setViewportView(ResultTable);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -206,13 +220,21 @@ public class NewJFrame extends javax.swing.JFrame {
     private void AddDataBaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddDataBaseActionPerformed
         Connecte con = new Connecte();
         con.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_AddDataBaseActionPerformed
 
     private void QueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QueryActionPerformed
 
         Query qy = new Query();
         qy.setVisible(true);
+
     }//GEN-LAST:event_QueryActionPerformed
+
+    private void FileChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileChooseActionPerformed
+
+        FileMethod file = new FileMethod();
+        file.selectFile(this);
+    }//GEN-LAST:event_FileChooseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,9 +273,11 @@ public class NewJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddDataBase;
+    private javax.swing.JTree DataBaseTree;
+    private javax.swing.JButton FileChoose;
     private javax.swing.JMenuItem Output;
     private javax.swing.JButton Query;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JTable ResultTable;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -268,9 +292,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
 }

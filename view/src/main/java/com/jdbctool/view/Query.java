@@ -5,6 +5,17 @@
  */
 package com.jdbctool.view;
 
+import com.jdbctool.model.ConnectionInfo;
+import com.jdbctool.model.util.ConmentMessage;
+import com.jdbctool.model.util.ConnectionMethod;
+import com.jdbctool.view.util.DialogMessage;
+import static com.jdbctool.view.util.FileMethod.readFile;
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author
@@ -14,8 +25,14 @@ public class Query extends javax.swing.JFrame {
     /**
      * Creates new form Query
      */
+    ConnectionInfo con = new ConnectionInfo();
+    DialogMessage dialog = new DialogMessage();
+
     public Query() {
+
         initComponents();
+        load();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -27,29 +44,40 @@ public class Query extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        ResultOutput = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        InputSql = new javax.swing.JTextArea();
         jToolBar1 = new javax.swing.JToolBar();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        Return = new javax.swing.JButton();
+        next = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
-        jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        RunSql = new javax.swing.JButton();
+        ComboBox = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        ResultJtable = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+
+        ResultOutput.setText("結果出力");
+        ResultOutput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResultOutputActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(ResultOutput);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("SQL検索"));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        InputSql.setColumns(20);
+        InputSql.setFont(new java.awt.Font("Monospaced", 0, 24)); // NOI18N
+        InputSql.setRows(5);
+        jScrollPane1.setViewportView(InputSql);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -65,32 +93,41 @@ public class Query extends javax.swing.JFrame {
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
-        jButton2.setIcon(new javax.swing.ImageIcon("D:\\java資料\\knob-buttons-toolbar-icons_by_itweek\\32\\Knob-Snapback-icon.png")); // NOI18N
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton2);
+        Return.setIcon(new javax.swing.ImageIcon("D:\\java資料\\knob-buttons-toolbar-icons_by_itweek\\32\\Knob-Snapback-icon.png")); // NOI18N
+        Return.setFocusable(false);
+        Return.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Return.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Return.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReturnActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(Return);
 
-        jButton3.setIcon(new javax.swing.ImageIcon("D:\\java資料\\knob-buttons-toolbar-icons_by_itweek\\32\\Knob-Snapforward-icon.png")); // NOI18N
-        jButton3.setToolTipText("");
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton3);
+        next.setIcon(new javax.swing.ImageIcon("D:\\java資料\\knob-buttons-toolbar-icons_by_itweek\\32\\Knob-Snapforward-icon.png")); // NOI18N
+        next.setToolTipText("");
+        next.setFocusable(false);
+        next.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        next.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(next);
         jToolBar1.add(jSeparator1);
 
-        jButton1.setIcon(new javax.swing.ImageIcon("D:\\java資料\\knob-buttons-toolbar-icons_by_itweek\\32\\Knob-Play-Green-icon.png")); // NOI18N
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton1);
+        RunSql.setIcon(new javax.swing.ImageIcon("D:\\java資料\\knob-buttons-toolbar-icons_by_itweek\\32\\Knob-Play-Green-icon.png")); // NOI18N
+        RunSql.setFocusable(false);
+        RunSql.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        RunSql.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        RunSql.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RunSqlActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(RunSql);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jToolBar1.add(jComboBox1);
+        jToolBar1.add(ComboBox);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("出力レビュー"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        ResultJtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -98,23 +135,24 @@ public class Query extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane3.setViewportView(jTable1);
+        ResultJtable.setComponentPopupMenu(jPopupMenu1);
+        jScrollPane3.setViewportView(ResultJtable);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 907, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1063, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("File");
+        jMenu1.setText("ファイル(F)");
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("編集(E)");
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -145,21 +183,108 @@ public class Query extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * SQL実行
+     *
+     * @param evt
+     */
+    private void RunSqlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunSqlActionPerformed
+
+        String sql = InputSql.getText();
+        String databaseName = con.getDatabaseName();
+        String userName = con.getUserName();
+        String pwd = con.getPassword();
+        DefaultTableModel resu = (DefaultTableModel) ResultJtable.getModel();
+
+        List<String> columnName = ConnectionMethod.ColumnName(databaseName, userName, pwd, sql);
+
+        if (!columnName.isEmpty()) {
+            //List to Array
+            String[] array = columnName.toArray(new String[columnName.size()]);
+            //列名設定
+            resu.setColumnIdentifiers(array);
+            //行数初期化
+            resu.setRowCount(0);
+            //列値
+            List<List<Object>> resultValue = ConnectionMethod.getResultValue(databaseName, userName, pwd, sql);
+            //列値設定
+
+            for (List<Object> rv : resultValue) {
+                String[] toArray = rv.toArray(new String[rv.size()]);
+                resu.addRow(toArray);
+                System.out.println(Arrays.toString(toArray));
+            }
+
+        } else {
+
+            dialog.popDialog(ConmentMessage.RIGHTSQL, false);
+        }
+
+    }//GEN-LAST:event_RunSqlActionPerformed
+
+    /**
+     * 撤销
+     *
+     * @param evt
+     */
+    private void ReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnActionPerformed
+
+        InputSql.setText("");
+
+        DefaultTableModel model = (DefaultTableModel) ResultJtable.getModel();
+        //クリアテーブル
+        model.setRowCount(0);
+        model.setColumnCount(0);
+    }//GEN-LAST:event_ReturnActionPerformed
+
+    /**
+     * 画面ロード
+     */
+    public void load() {
+        File file = new File("D:\\netbeansWorkspace\\AutoTool\\view\\src\\main\\resources\\dataInfo.txt");
+        ConnectionInfo result = readFile(file);
+
+        ComboBox.addItem(result.getUrl());
+        ComboBox.setSelectedItem(result.getUrl());
+    }
+
+    /**
+     *
+     */
+    public void getResultTable() {
+        int row = 1;
+        TableModel model = ResultJtable.getModel();
+        int cols = model.getColumnCount();
+        Object[] values = new Object[cols];
+        for (int col = 0; col < cols; col++) {
+            values[col] = model.getValueAt(row, col);
+        }
+    }
+
+    private void ResultOutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResultOutputActionPerformed
+
+        OutputFile out = new OutputFile();
+        out.setVisible(true);
+
+    }//GEN-LAST:event_ResultOutputActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
+    public javax.swing.JComboBox<String> ComboBox;
+    private javax.swing.JTextArea InputSql;
+    private javax.swing.JTable ResultJtable;
+    private javax.swing.JMenuItem ResultOutput;
+    private javax.swing.JButton Return;
+    private static javax.swing.JButton RunSql;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToolBar.Separator jSeparator1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JButton next;
     // End of variables declaration//GEN-END:variables
 }
