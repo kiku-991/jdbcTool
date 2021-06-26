@@ -125,7 +125,7 @@ public class ConnectionMethod {
     }
 
     /**
-     * すべてのテーブル名を取得
+     * データベースによって、すべてのテーブル名を取得
      *
      * @param databaseName
      * @param username
@@ -162,7 +162,7 @@ public class ConnectionMethod {
     }
 
     /**
-     * データベースの値を取得
+     * SQLによって、その結果を取得
      *
      * @param databaseName
      * @param userName
@@ -194,7 +194,7 @@ public class ConnectionMethod {
     }
 
     /**
-     * カラム名を取得
+     * SQLによって結果のカラム名を取得
      *
      * @param databaseName
      * @param userName

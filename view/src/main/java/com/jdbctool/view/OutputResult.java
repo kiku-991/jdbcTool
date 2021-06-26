@@ -5,21 +5,23 @@
  */
 package com.jdbctool.view;
 
+import com.jdbctool.model.util.ConmentMessage;
+import com.jdbctool.view.util.DialogMessage;
 import com.jdbctool.view.util.FileMethod;
 
 /**
  *
  * @author
  */
-public class OutputFile extends javax.swing.JFrame {
+public class OutputResult extends javax.swing.JFrame {
 
-    FileMethod file = new FileMethod();
-    String path;
+    public static boolean flg;
+    DialogMessage dialog = new DialogMessage();
 
     /**
      * Creates new form OutputFile
      */
-    public OutputFile() {
+    public OutputResult() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -45,12 +47,6 @@ public class OutputFile extends javax.swing.JFrame {
         SelectedFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SelectedFileActionPerformed(evt);
-            }
-        });
-
-        FilePath.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FilePathActionPerformed(evt);
             }
         });
 
@@ -102,19 +98,40 @@ public class OutputFile extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void FilePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilePathActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FilePathActionPerformed
-
     private void SelectedFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectedFileActionPerformed
         // TODO add your handling code here:
 
-        path = file.getDirectory(this);
+        String path = FileMethod.getDirectory(this);
         FilePath.setText(path);
 
     }//GEN-LAST:event_SelectedFileActionPerformed
 
+    /**
+     * 出力
+     *
+     * @param evt
+     */
     private void OutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OutputActionPerformed
+        String path = FilePath.getText();
+
+        if (flg) {
+            //main tableResult output
+            boolean fmd = FileMethod.toCsv(path, NewJFrame.ResultTable);
+            if (fmd == true) {
+                DialogMessage.popDialog(ConmentMessage.OUTPUTOK, fmd);
+            } else {
+                DialogMessage.popDialog(ConmentMessage.OUTPUTFAIL, fmd);
+            }
+
+        } else {
+            //sql tableResult output
+            boolean fmd = FileMethod.toCsv(path, Query.JtableResult);
+            if (fmd == true) {
+                DialogMessage.popDialog(ConmentMessage.OUTPUTOK, fmd);
+            } else {
+                DialogMessage.popDialog(ConmentMessage.OUTPUTFAIL, fmd);
+            }
+        }
 
     }//GEN-LAST:event_OutputActionPerformed
 

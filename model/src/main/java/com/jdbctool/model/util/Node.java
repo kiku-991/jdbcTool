@@ -25,13 +25,13 @@ public class Node {
      */
     public static DefaultMutableTreeNode insertNode(String databaseName) {
 
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode(ConmentMessage.DATABASE);
-        DefaultMutableTreeNode mercury = new DefaultMutableTreeNode(ConmentMessage.HOST);
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(ConmentMessage.HOST);
+        DefaultMutableTreeNode mercury = new DefaultMutableTreeNode(databaseName);
         root.add(mercury);
-        DefaultMutableTreeNode venus = new DefaultMutableTreeNode(databaseName);
-        mercury.add(venus);
+//        DefaultMutableTreeNode venus = new DefaultMutableTreeNode(databaseName);
+//        mercury.add(venus);
 
-        return root;
+        return mercury;
     }
 
     /**
@@ -57,11 +57,14 @@ public class Node {
      */
     public static DefaultMutableTreeNode insertNode(String databaseName, List<String> tableName) {
 
-        DefaultMutableTreeNode root = insertNode(databaseName);
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(ConmentMessage.HOST);
+        DefaultMutableTreeNode mercury = new DefaultMutableTreeNode(databaseName);
+        root.add(mercury);
+        // DefaultMutableTreeNode root = insertNode(databaseName);
 
         for (String tbn : tableName) {
             DefaultMutableTreeNode table = new DefaultMutableTreeNode(tbn);
-            root.add(table);
+            mercury.add(table);
         }
         return root;
 

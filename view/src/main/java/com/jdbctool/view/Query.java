@@ -14,7 +14,6 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -29,10 +28,10 @@ public class Query extends javax.swing.JFrame {
     DialogMessage dialog = new DialogMessage();
 
     public Query() {
-
         initComponents();
         load();
         this.setLocationRelativeTo(null);
+        JtableResult.setRowHeight(20);
     }
 
     /**
@@ -57,7 +56,7 @@ public class Query extends javax.swing.JFrame {
         ComboBox = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        ResultJtable = new javax.swing.JTable();
+        JtableResult = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -70,7 +69,7 @@ public class Query extends javax.swing.JFrame {
         });
         jPopupMenu1.add(ResultOutput);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("SQL検索"));
 
@@ -127,7 +126,7 @@ public class Query extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("出力レビュー"));
 
-        ResultJtable.setModel(new javax.swing.table.DefaultTableModel(
+        JtableResult.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -135,18 +134,18 @@ public class Query extends javax.swing.JFrame {
 
             }
         ));
-        ResultJtable.setComponentPopupMenu(jPopupMenu1);
-        jScrollPane3.setViewportView(ResultJtable);
+        JtableResult.setComponentPopupMenu(jPopupMenu1);
+        jScrollPane3.setViewportView(JtableResult);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1063, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
         );
 
         jMenu1.setText("ファイル(F)");
@@ -194,7 +193,7 @@ public class Query extends javax.swing.JFrame {
         String databaseName = con.getDatabaseName();
         String userName = con.getUserName();
         String pwd = con.getPassword();
-        DefaultTableModel resu = (DefaultTableModel) ResultJtable.getModel();
+        DefaultTableModel resu = (DefaultTableModel) JtableResult.getModel();
 
         List<String> columnName = ConnectionMethod.ColumnName(databaseName, userName, pwd, sql);
 
@@ -215,6 +214,7 @@ public class Query extends javax.swing.JFrame {
                 System.out.println(Arrays.toString(toArray));
             }
 
+            JtableResult.setRowHeight(25);
         } else {
 
             dialog.popDialog(ConmentMessage.RIGHTSQL, false);
@@ -231,7 +231,7 @@ public class Query extends javax.swing.JFrame {
 
         InputSql.setText("");
 
-        DefaultTableModel model = (DefaultTableModel) ResultJtable.getModel();
+        DefaultTableModel model = (DefaultTableModel) JtableResult.getModel();
         //クリアテーブル
         model.setRowCount(0);
         model.setColumnCount(0);
@@ -249,21 +249,14 @@ public class Query extends javax.swing.JFrame {
     }
 
     /**
+     * 出力
      *
+     * @param evt
      */
-    public void getResultTable() {
-        int row = 1;
-        TableModel model = ResultJtable.getModel();
-        int cols = model.getColumnCount();
-        Object[] values = new Object[cols];
-        for (int col = 0; col < cols; col++) {
-            values[col] = model.getValueAt(row, col);
-        }
-    }
-
     private void ResultOutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResultOutputActionPerformed
 
-        OutputFile out = new OutputFile();
+        OutputResult out = new OutputResult();
+        OutputResult.flg = false;
         out.setVisible(true);
 
     }//GEN-LAST:event_ResultOutputActionPerformed
@@ -271,7 +264,7 @@ public class Query extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JComboBox<String> ComboBox;
     private javax.swing.JTextArea InputSql;
-    private javax.swing.JTable ResultJtable;
+    public static javax.swing.JTable JtableResult;
     private javax.swing.JMenuItem ResultOutput;
     private javax.swing.JButton Return;
     private static javax.swing.JButton RunSql;

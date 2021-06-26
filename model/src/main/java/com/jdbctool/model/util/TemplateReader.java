@@ -90,7 +90,7 @@ public class TemplateReader {
 
             String pcName = getPackageName(path);
 
-            String packageName = pcName + "eneity";
+            String packageName = pcName + ".eneity";
 
             String template = readSource(packageName, tableName, className, list);
             try {
@@ -212,11 +212,6 @@ public class TemplateReader {
             file.createNewFile();
         }
 
-//        try (FileWriter writer = new FileWriter(file)) {
-//            writer.write(info);
-//
-//            writer.flush();
-//        }
         PrintWriter p_writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8")));
         p_writer.println(info);
         p_writer.close();
@@ -240,6 +235,7 @@ public class TemplateReader {
     }
 
     /**
+     * テンプレート読み込み
      *
      * @param packageName
      * @param tableName
@@ -261,7 +257,7 @@ public class TemplateReader {
         ve.setProperty("output.encoding", "UTF-8");
 
         ve.init();
-        Template t = ve.getTemplate("sample.vm");
+        Template t = ve.getTemplate("template.vm");
         t.setEncoding("UTF-8");
         VelocityContext context = new VelocityContext();
         context.put("packageName", packageName);

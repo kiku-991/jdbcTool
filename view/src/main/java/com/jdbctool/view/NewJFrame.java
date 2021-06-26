@@ -6,7 +6,16 @@
 package com.jdbctool.view;
 
 import com.jdbctool.model.ConnectionInfo;
+import com.jdbctool.model.util.ConnectionMethod;
 import com.jdbctool.view.util.FileMethod;
+import java.awt.Color;
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 
 /**
  *
@@ -14,7 +23,7 @@ import com.jdbctool.view.util.FileMethod;
  */
 public class NewJFrame extends javax.swing.JFrame {
 
-    ConnectionInfo con = new ConnectionInfo();
+    public static String clcikTableName;
 
     /**
      * Creates new form NewJFrame
@@ -22,6 +31,10 @@ public class NewJFrame extends javax.swing.JFrame {
     public NewJFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
+        //幅設定
+        DataBaseTree.setRowHeight(20);
+        DataBaseTree.setModel(null);
+
     }
 
     /**
@@ -33,8 +46,11 @@ public class NewJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
+        JtablePopupMenu = new javax.swing.JPopupMenu();
         Output = new javax.swing.JMenuItem();
+        JtreePopupMenu = new javax.swing.JPopupMenu();
+        EntityOutput = new javax.swing.JMenuItem();
+        AllOutput = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         DataBaseTree = new javax.swing.JTree();
@@ -47,9 +63,6 @@ public class NewJFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         ResultTable = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -57,7 +70,28 @@ public class NewJFrame extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
 
         Output.setText("エンティティ出力");
-        jPopupMenu1.add(Output);
+        Output.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OutputActionPerformed(evt);
+            }
+        });
+        JtablePopupMenu.add(Output);
+
+        EntityOutput.setText("エンティティ出力");
+        EntityOutput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EntityOutputActionPerformed(evt);
+            }
+        });
+        JtreePopupMenu.add(EntityOutput);
+
+        AllOutput.setText("エンティティ一括出力");
+        AllOutput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AllOutputActionPerformed(evt);
+            }
+        });
+        JtreePopupMenu.add(AllOutput);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("KikuTool");
@@ -67,6 +101,12 @@ public class NewJFrame extends javax.swing.JFrame {
         DataBaseTree.setFont(new java.awt.Font("MS UI Gothic", 0, 24)); // NOI18N
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         DataBaseTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        DataBaseTree.setComponentPopupMenu(JtreePopupMenu);
+        DataBaseTree.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DataBaseTreeMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(DataBaseTree);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -74,8 +114,8 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,14 +160,13 @@ public class NewJFrame extends javax.swing.JFrame {
 
         ResultTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "タイトル 1", "タイトル 2", "タイトル 3"
+
             }
         ));
-        ResultTable.setComponentPopupMenu(jPopupMenu1);
+        ResultTable.setComponentPopupMenu(JtablePopupMenu);
         jScrollPane2.setViewportView(ResultTable);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -138,7 +177,7 @@ public class NewJFrame extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 805, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("テーブル", jPanel2);
@@ -151,27 +190,10 @@ public class NewJFrame extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 293, Short.MAX_VALUE)
+            .addGap(0, 805, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("プロパティ", jPanel3);
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("SQLレビュー"));
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane3.setViewportView(jTextArea1);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
-        );
 
         jMenu1.setText("ファイル(F)");
         jMenuBar1.add(jMenu1);
@@ -197,9 +219,7 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jTabbedPane1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,10 +227,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane1)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -236,6 +253,62 @@ public class NewJFrame extends javax.swing.JFrame {
         file.selectFile(this);
     }//GEN-LAST:event_FileChooseActionPerformed
 
+    private void DataBaseTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DataBaseTreeMouseClicked
+        File file = new File("D:\\netbeansWorkspace\\AutoTool\\view\\src\\main\\resources\\dataInfo.txt");
+        ConnectionInfo con = FileMethod.readFile(file);
+        String un = con.getUserName();
+        String pwd = con.getPassword();
+        String db = con.getDatabaseName();
+        DefaultTableModel resu = (DefaultTableModel) ResultTable.getModel();
+        TreePath[] treePaths = DataBaseTree.getSelectionModel().getSelectionPaths();
+        for (TreePath treePath : treePaths) {
+            DefaultMutableTreeNode selectedElement = (DefaultMutableTreeNode) treePath.getLastPathComponent();
+            Object tableName = selectedElement.getUserObject();
+            if (!tableName.equals("localhost") || !tableName.equals("kiku")) {
+                clcikTableName = (String) tableName;
+                String sql = "select * from " + clcikTableName;
+
+                List<String> colunmName = ConnectionMethod.ColumnName(db, un, pwd, sql);
+                //List to Array
+                String[] array = colunmName.toArray(new String[colunmName.size()]);
+                //列名設定
+                resu.setColumnIdentifiers(array);
+                //行数初期化
+                resu.setRowCount(0);
+                //列値
+                List<List<Object>> resultValue = ConnectionMethod.getResultValue(db, un, pwd, sql);
+
+                for (List<Object> rv : resultValue) {
+                    String[] toArray = rv.toArray(new String[rv.size()]);
+                    resu.addRow(toArray);
+                    System.out.println(Arrays.toString(toArray));
+                }
+                DataBaseTree.setRowHeight(25);
+                JTableHeader header = ResultTable.getTableHeader();
+                header.setBackground(Color.red);
+            }
+        }
+
+    }//GEN-LAST:event_DataBaseTreeMouseClicked
+
+    private void OutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OutputActionPerformed
+        int i = 0;
+        FileMethod fm = new FileMethod();
+        fm.Output(i);
+    }//GEN-LAST:event_OutputActionPerformed
+
+    private void EntityOutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntityOutputActionPerformed
+        int i = 1;
+        FileMethod fm = new FileMethod();
+        fm.Output(i);
+    }//GEN-LAST:event_EntityOutputActionPerformed
+
+    private void AllOutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllOutputActionPerformed
+        int i = 2;
+        FileMethod fm = new FileMethod();
+        fm.Output(i);
+    }//GEN-LAST:event_AllOutputActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -250,16 +323,24 @@ public class NewJFrame extends javax.swing.JFrame {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -273,11 +354,15 @@ public class NewJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddDataBase;
-    private javax.swing.JTree DataBaseTree;
+    private javax.swing.JMenuItem AllOutput;
+    public javax.swing.JTree DataBaseTree;
+    private javax.swing.JMenuItem EntityOutput;
     private javax.swing.JButton FileChoose;
+    private javax.swing.JPopupMenu JtablePopupMenu;
+    private javax.swing.JPopupMenu JtreePopupMenu;
     private javax.swing.JMenuItem Output;
     private javax.swing.JButton Query;
-    private javax.swing.JTable ResultTable;
+    public static javax.swing.JTable ResultTable;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -286,13 +371,9 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }

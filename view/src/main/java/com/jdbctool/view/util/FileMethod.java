@@ -7,6 +7,8 @@ package com.jdbctool.view.util;
 
 import com.jdbctool.model.ConnectionInfo;
 import com.jdbctool.model.util.ConmentMessage;
+import com.jdbctool.view.EntityOutput;
+import com.jdbctool.view.OutputResult;
 import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -53,7 +55,7 @@ public class FileMethod {
      * @param comp
      * @return
      */
-    public String getDirectory(Component comp) {
+    public static String getDirectory(Component comp) {
 
         String path = "";
 
@@ -88,7 +90,7 @@ public class FileMethod {
      * @param table
      * @return
      */
-    public boolean toCsv(String path, JTable table) {
+    public static boolean toCsv(String path, JTable table) {
 
         boolean flg = false;
         try {
@@ -210,6 +212,12 @@ public class FileMethod {
         return con;
     }
 
+    /**
+     * ファイル読み込み可能チェック
+     *
+     * @param file
+     * @return
+     */
     private static boolean checkBeforeReadfile(File file) {
         if (file.exists()) {
             if (file.isFile() && file.canRead()) {
@@ -218,5 +226,36 @@ public class FileMethod {
         }
 
         return false;
+    }
+
+    /**
+     * 出力タイプ
+     *
+     * @param outputType
+     */
+    public void Output(int outputType) {
+
+        //結果出力
+        switch (outputType) {
+            case 0:
+                OutputResult result = new OutputResult();
+                OutputResult.flg = true;
+                result.setVisible(true);
+                break;
+            case 1: {
+                //エンティティ出力
+                EntityOutput entity = new EntityOutput();
+                EntityOutput.flg = true;
+                entity.setVisible(true);
+                break;
+            }
+            default: {
+                //一括出力
+                EntityOutput entity = new EntityOutput();
+                EntityOutput.flg = false;
+                entity.setVisible(true);
+                break;
+            }
+        }
     }
 }
