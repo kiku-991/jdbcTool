@@ -42,6 +42,7 @@ public class EntityOutput extends javax.swing.JFrame {
         path = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("出力");
 
         FileChoose.setText("フォルダ選択");
         FileChoose.addActionListener(new java.awt.event.ActionListener() {

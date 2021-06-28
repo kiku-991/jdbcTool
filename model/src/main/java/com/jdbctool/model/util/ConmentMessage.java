@@ -38,5 +38,6 @@ public class ConmentMessage {
     public static final String PUBLIC = "public";
     public static final String RIGHTSQL = "正しいSQLを入力してください";
     public static final String CANMA = ",";
+    public static final String SQL = "select * from ";
 
 }

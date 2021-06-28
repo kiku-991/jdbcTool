@@ -6,6 +6,7 @@
 package com.jdbctool.view;
 
 import com.jdbctool.model.ConnectionInfo;
+import com.jdbctool.model.util.ConmentMessage;
 import com.jdbctool.model.util.ConnectionMethod;
 import com.jdbctool.view.util.FileMethod;
 import java.awt.Color;
@@ -173,7 +174,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,7 +187,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 726, Short.MAX_VALUE)
+            .addGap(0, 785, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +220,7 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,18 +256,24 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void DataBaseTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DataBaseTreeMouseClicked
         File file = new File("D:\\netbeansWorkspace\\AutoTool\\view\\src\\main\\resources\\dataInfo.txt");
+        //ファイル読み込み
         ConnectionInfo con = FileMethod.readFile(file);
+        //ユーザ名
         String un = con.getUserName();
+        //パスワード
         String pwd = con.getPassword();
+        //データベース名
         String db = con.getDatabaseName();
         DefaultTableModel resu = (DefaultTableModel) ResultTable.getModel();
         TreePath[] treePaths = DataBaseTree.getSelectionModel().getSelectionPaths();
         for (TreePath treePath : treePaths) {
             DefaultMutableTreeNode selectedElement = (DefaultMutableTreeNode) treePath.getLastPathComponent();
+            //選択されたNode名取得
             Object tableName = selectedElement.getUserObject();
-            if (!tableName.equals("localhost") || !tableName.equals("kiku")) {
+
+            if (!tableName.equals(ConmentMessage.HOST) || !tableName.equals(db)) {
                 clcikTableName = (String) tableName;
-                String sql = "select * from " + clcikTableName;
+                String sql = ConmentMessage.SQL + clcikTableName;
 
                 List<String> colunmName = ConnectionMethod.ColumnName(db, un, pwd, sql);
                 //List to Array
@@ -283,6 +290,7 @@ public class NewJFrame extends javax.swing.JFrame {
                     resu.addRow(toArray);
                     System.out.println(Arrays.toString(toArray));
                 }
+                //行幅設定
                 DataBaseTree.setRowHeight(25);
                 JTableHeader header = ResultTable.getTableHeader();
                 header.setBackground(Color.red);
@@ -291,18 +299,33 @@ public class NewJFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_DataBaseTreeMouseClicked
 
+    /**
+     * 結果出力
+     *
+     * @param evt
+     */
     private void OutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OutputActionPerformed
         int i = 0;
         FileMethod fm = new FileMethod();
         fm.Output(i);
     }//GEN-LAST:event_OutputActionPerformed
 
+    /**
+     * エンティティ出力
+     *
+     * @param evt
+     */
     private void EntityOutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntityOutputActionPerformed
         int i = 1;
         FileMethod fm = new FileMethod();
         fm.Output(i);
     }//GEN-LAST:event_EntityOutputActionPerformed
 
+    /**
+     * 一括出力
+     *
+     * @param evt
+     */
     private void AllOutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllOutputActionPerformed
         int i = 2;
         FileMethod fm = new FileMethod();

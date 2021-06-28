@@ -14,7 +14,6 @@ import com.jdbctool.view.util.FileMethod;
 import static com.jdbctool.view.util.FileMethod.readFile;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +33,6 @@ public class Connecte extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         load();
     }
-    DialogMessage dialog = new DialogMessage();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -259,17 +257,15 @@ public class Connecte extends javax.swing.JFrame {
         String pw = Password.getText();
 
         //DB 接続
-        ConnectionMethod jdbc = new ConnectionMethod();
-        ArrayList<String> st = jdbc.getAllTableList(db, un, pw);
-//        // Statement st = JDBCConnection.connect.getConn(db, un, pw);
+        ArrayList<String> st = ConnectionMethod.getAllTableList(db, un, pw);
         FileMethod file = new FileMethod();
-//
+        //DB 接続成功
         if (st != null) {
 
             try {
                 //データをファイルに書き込み
                 file.Writefile(sv, port, db, un, pw);
-                dialog.popDialog(ConmentMessage.CONNECT_SUCCESSFUL, true);
+                DialogMessage.popDialog(ConmentMessage.CONNECT_SUCCESSFUL, true);
             } catch (IOException ex) {
                 Logger.getLogger(Connecte.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -279,8 +275,9 @@ public class Connecte extends javax.swing.JFrame {
             jf.DataBaseTree.setModel(mm);
             jf.setVisible(true);
 
+            //DB 接続失敗
         } else {
-            dialog.popDialog(ConmentMessage.CONNECT_FAIL, false);
+            DialogMessage.popDialog(ConmentMessage.CONNECT_FAIL, false);
         }
 
     }//GEN-LAST:event_ConnecteActionPerformed

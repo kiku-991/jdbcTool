@@ -29,14 +29,6 @@ public class ConnectionMethod {
 
     public static List<String> dataNameList = new ArrayList<>();
 
-//    public static void main(String... args) {
-//        Statement xx = getConn("kiku", "postgres", "postgres");
-//        if (xx != null) {
-//            System.out.println("sssssss");
-//        } else {
-//            System.out.println("aaaa");
-//        }
-//    }
     /**
      * データベース接続
      *

@@ -34,6 +34,9 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jPanel1">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="&#x51fa;&#x529b;"/>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">

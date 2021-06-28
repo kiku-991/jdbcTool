@@ -25,7 +25,6 @@ public class Query extends javax.swing.JFrame {
      * Creates new form Query
      */
     ConnectionInfo con = new ConnectionInfo();
-    DialogMessage dialog = new DialogMessage();
 
     public Query() {
         initComponents();
@@ -70,6 +69,7 @@ public class Query extends javax.swing.JFrame {
         jPopupMenu1.add(ResultOutput);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("SQL検索");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("SQL検索"));
 
@@ -194,7 +194,7 @@ public class Query extends javax.swing.JFrame {
         String userName = con.getUserName();
         String pwd = con.getPassword();
         DefaultTableModel resu = (DefaultTableModel) JtableResult.getModel();
-
+        //カラム名取得
         List<String> columnName = ConnectionMethod.ColumnName(databaseName, userName, pwd, sql);
 
         if (!columnName.isEmpty()) {
@@ -217,7 +217,7 @@ public class Query extends javax.swing.JFrame {
             JtableResult.setRowHeight(25);
         } else {
 
-            dialog.popDialog(ConmentMessage.RIGHTSQL, false);
+            DialogMessage.popDialog(ConmentMessage.RIGHTSQL, false);
         }
 
     }//GEN-LAST:event_RunSqlActionPerformed
