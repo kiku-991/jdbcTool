@@ -61,11 +61,9 @@ public class Node {
         DefaultMutableTreeNode mercury = new DefaultMutableTreeNode(databaseName);
         root.add(mercury);
         // DefaultMutableTreeNode root = insertNode(databaseName);
-
-        for (String tbn : tableName) {
-            DefaultMutableTreeNode table = new DefaultMutableTreeNode(tbn);
+        tableName.stream().map((tbn) -> new DefaultMutableTreeNode(tbn)).forEachOrdered((table) -> {
             mercury.add(table);
-        }
+        });
         return root;
 
     }
@@ -89,10 +87,9 @@ public class Node {
     public static MutableTreeNode children(List<String> tableName) {
 
         DefaultMutableTreeNode tables = new DefaultMutableTreeNode(ConmentMessage.PUBLIC);
-        for (String tbn : tableName) {
-            DefaultMutableTreeNode table = new DefaultMutableTreeNode(tbn);
+        tableName.stream().map((tbn) -> new DefaultMutableTreeNode(tbn)).forEachOrdered((table) -> {
             tables.add(table);
-        }
+        });
 
         return tables;
 

@@ -52,7 +52,7 @@ public class TemplateReader {
 
         try {
 
-            stmt = con.getDBConn(databaseName, username, pwd);
+            stmt = ConnectionMethod.getDBConn(databaseName, username, pwd);
 
             String coulmnSql = "SELECT\n"
                     + "    a.attname as name\n"
@@ -141,18 +141,33 @@ public class TemplateReader {
     public static String classCast(Object obj) {
         String type = "";
         String str = (String) obj;
-        if (str.equals("varchar") || str.equals("char") || str.equals("text")) {
-            type = "String";
-        } else if (str.equals("int") || str.equals("integer") || str.equals("serial")) {
-            type = "Integer";
-        } else if (str.equals("bigint")) {
-            type = "Long";
-        } else if (str.equals("double") || str.equals("float")) {
-            type = "Double";
-        } else if (str.equals("date") || str.equals("datetime") || str.equals("timestamp") || str.equals("timestamp without time zone")) {
-            type = "Date";
-        } else {
-            type = "String";
+        switch (str) {
+            case "varchar":
+            case "char":
+            case "text":
+                type = "String";
+                break;
+            case "int":
+            case "integer":
+            case "serial":
+                type = "Integer";
+                break;
+            case "bigint":
+                type = "Long";
+                break;
+            case "double":
+            case "float":
+                type = "Double";
+                break;
+            case "date":
+            case "datetime":
+            case "timestamp":
+            case "timestamp without time zone":
+                type = "Date";
+                break;
+            default:
+                type = "String";
+                break;
         }
         return type;
     }

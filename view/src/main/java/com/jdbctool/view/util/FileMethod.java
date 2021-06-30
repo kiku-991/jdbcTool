@@ -94,7 +94,7 @@ public class FileMethod {
 
         boolean flg = false;
         try {
-            File file = new File(path + "\\data.txt");
+            File file = new File(path + "\\data.csv");
             TableModel modelo = table.getModel();
             // FileWriter csv = new FileWriter(archivo);
             PrintWriter csv = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8")));
@@ -137,14 +137,13 @@ public class FileMethod {
         System.out.println(path);
         File file = new File(path + "\\src\\main\\resources\\dataInfo.txt");
         if (checkBeforeWritefile(file) == true) {
-            FileWriter filewriter = new FileWriter(file);
-            // "jdbc:postgresql://localhost:5432/soul"
-
             //  String url = "jdbc:postgresql://" + Server + ":" + portNum + "/" + DatabaseName;
-            filewriter.write(Server + ConmentMessage.CANMA + portNum + ConmentMessage.CANMA + DatabaseName + ConmentMessage.CANMA
-                    + UserName + ConmentMessage.CANMA + Password);
-
-            filewriter.close();
+            try (FileWriter filewriter = new FileWriter(file) // "jdbc:postgresql://localhost:5432/soul"
+                    ) {
+                //  String url = "jdbc:postgresql://" + Server + ":" + portNum + "/" + DatabaseName;
+                filewriter.write(Server + ConmentMessage.CANMA + portNum + ConmentMessage.CANMA + DatabaseName + ConmentMessage.CANMA
+                        + UserName + ConmentMessage.CANMA + Password);
+            }
         } else {
 
             System.out.println("上書き");
@@ -162,12 +161,6 @@ public class FileMethod {
 
     }
 
-//    public static void main(String... args) {
-//        File file = new File("D:\\netbeansWorkspace\\AutoTool\\view\\src\\main\\resources\\dataInfo.txt");
-//
-//
-//
-//    }
     /**
      * ファイル読み込み
      *

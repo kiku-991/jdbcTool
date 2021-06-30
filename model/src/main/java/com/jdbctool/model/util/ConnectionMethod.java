@@ -160,6 +160,7 @@ public class ConnectionMethod {
      * @param userName
      * @param pwd
      * @param sql
+     * @return
      */
     public static List<List<Object>> getResultValue(String databaseName, String userName, String pwd, String sql) {
 
@@ -196,7 +197,7 @@ public class ConnectionMethod {
      */
     public static List<String> ColumnName(String databaseName, String userName, String pwd, String sql) {
 
-        List<String> columnNames = new ArrayList<String>();
+        List<String> columnNames = new ArrayList<>();
         try {
 
             rset = getConn(databaseName, userName, pwd).executeQuery(sql);
@@ -213,7 +214,7 @@ public class ConnectionMethod {
                 }
 
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             Logger.getLogger(ConnectionMethod.class.getName()).log(Level.SEVERE, null, e);
         }
 

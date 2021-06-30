@@ -18,6 +18,7 @@ public class DialogMessage {
      * メッセージが表示され
      *
      * @param message
+     * @param flg
      */
     public static void popDialog(String message, boolean flg) {
 
