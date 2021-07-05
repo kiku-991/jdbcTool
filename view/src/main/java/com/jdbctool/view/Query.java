@@ -194,19 +194,19 @@ public class Query extends javax.swing.JFrame {
         String userName = con.getUserName();
         String pwd = con.getPassword();
         DefaultTableModel resu = (DefaultTableModel) JtableResult.getModel();
-        //カラム名取得
+        // カラム名取得
         List<String> columnName = ConnectionMethod.ColumnName(databaseName, userName, pwd, sql);
 
         if (!columnName.isEmpty()) {
-            //List to Array
+            // List to Array
             String[] array = columnName.toArray(new String[columnName.size()]);
-            //列名設定
+            // 列名設定
             resu.setColumnIdentifiers(array);
-            //行数初期化
+            // 行数初期化
             resu.setRowCount(0);
-            //列値
+            // 列値
             List<List<Object>> resultValue = ConnectionMethod.getResultValue(databaseName, userName, pwd, sql);
-            //列値設定
+            // 列値設定
 
             for (List<Object> rv : resultValue) {
                 String[] toArray = rv.toArray(new String[rv.size()]);
@@ -232,7 +232,7 @@ public class Query extends javax.swing.JFrame {
         InputSql.setText("");
 
         DefaultTableModel model = (DefaultTableModel) JtableResult.getModel();
-        //クリアテーブル
+        // クリアテーブル
         model.setRowCount(0);
         model.setColumnCount(0);
     }//GEN-LAST:event_ReturnActionPerformed

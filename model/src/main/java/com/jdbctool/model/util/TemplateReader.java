@@ -5,7 +5,6 @@
  */
 package com.jdbctool.model.util;
 
-import com.jdbctool.model.TableInfo;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,11 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
+
+import com.jdbctool.model.TableInfo;
 
 /**
  *
@@ -39,16 +41,16 @@ public class TemplateReader {
      * @param databaseName
      * @param username
      * @param pwd
+     * @param t
      * @return list
      */
-    public boolean getColumnAndType(String tableName, String path, String databaseName, String username, String pwd) {
+    public List<TableInfo> getColumnAndType(String tableName, String path, String databaseName,
+            String username, String pwd, int t) {
 
-        boolean flg = false;
         Statement stmt = null;
         ResultSet rset = null;
 
         ArrayList<TableInfo> list = new ArrayList<>();
-        ConnectionMethod con = new ConnectionMethod();
 
         try {
 
@@ -89,23 +91,38 @@ public class TemplateReader {
             }
 
             String pcName = getPackageName(path);
+            String outputType;
+            String packageName;
+            String template;
+            switch (t) {
+                case 0:
+                    outputType = "eneity";
+                    packageName = pcName + "." + outputType;
+                    template = readSource(packageName, tableName, className, list, t);
+                    break;
+                case 1:
+                    outputType = "object";
+                    packageName = pcName + "." + outputType;
+                    template = readSource(packageName, tableName, className, list, t);
+                    break;
+                default:
+                    outputType = "repositoy";
+                    packageName = pcName + "." + outputType;
+                    template = readSource(packageName, tableName, className, list, t);
+                    break;
+            }
 
-            String packageName = pcName + ".eneity";
-
-            String template = readSource(packageName, tableName, className, list);
             try {
                 //生成java文件
-                mkDirectory(path + "\\entity");
-                getFile(className, template, path + "\\entity\\");
-                flg = true;
+                mkDirectory(path + "\\" + outputType);
+                getFile(className, template, path + "\\" + outputType + "\\");
             } catch (IOException e) {
-                flg = false;
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(TemplateReader.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return flg;
+        return list;
     }
 
     /**
@@ -161,9 +178,11 @@ public class TemplateReader {
                 break;
             case "date":
             case "datetime":
+                type = "Date";
+                break;
             case "timestamp":
             case "timestamp without time zone":
-                type = "Date";
+                type = "Timestamp";
                 break;
             default:
                 type = "String";
@@ -256,9 +275,10 @@ public class TemplateReader {
      * @param tableName
      * @param className
      * @param list
+     * @param type
      * @return output
      */
-    public static String readSource(String packageName, String tableName, String className, List<TableInfo> list) {
+    public static String readSource(String packageName, String tableName, String className, List<TableInfo> list, int type) {
 
         VelocityEngine ve = new VelocityEngine();
         //外部
@@ -272,7 +292,19 @@ public class TemplateReader {
         ve.setProperty("output.encoding", "UTF-8");
 
         ve.init();
-        Template t = ve.getTemplate("template.vm");
+        String vm = null;
+        switch (type) {
+            case 0:
+                vm = "template.vm";
+                break;
+            case 1:
+                vm = "object.vm";
+                break;
+            default:
+                vm = "repository.vm";
+                break;
+        }
+        Template t = ve.getTemplate(vm);
         t.setEncoding("UTF-8");
         VelocityContext context = new VelocityContext();
         context.put("packageName", packageName);

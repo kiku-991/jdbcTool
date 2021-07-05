@@ -101,7 +101,6 @@ public class OutputResult extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SelectedFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectedFileActionPerformed
-        // TODO add your handling code here:
 
         String path = FileMethod.getDirectory(this);
         FilePath.setText(path);
@@ -117,7 +116,7 @@ public class OutputResult extends javax.swing.JFrame {
         String path = FilePath.getText();
 
         if (flg) {
-            //main tableResult output
+            // main tableResult output
             boolean fmd = FileMethod.toCsv(path, NewJFrame.ResultTable);
             if (fmd == true) {
                 DialogMessage.popDialog(ConmentMessage.OUTPUTOK, fmd);
@@ -126,7 +125,7 @@ public class OutputResult extends javax.swing.JFrame {
             }
 
         } else {
-            //sql tableResult output
+            // sql tableResult output
             boolean fmd = FileMethod.toCsv(path, Query.JtableResult);
             if (fmd == true) {
                 DialogMessage.popDialog(ConmentMessage.OUTPUTOK, fmd);

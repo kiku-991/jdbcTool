@@ -26,10 +26,10 @@ public class DialogMessage {
         ImageIcon attentionIcon = new ImageIcon(ConmentMessage.ATTETIONICON);
         MessageDialog dilog = new MessageDialog();
         if (flg == false) {
-            //setIcon
+            // setIcon
             MessageDialog.Message.setIcon(attentionIcon);
         } else {
-            //setIcon
+            // setIcon
             MessageDialog.Message.setIcon(oKIcon);
         }
         MessageDialog.Message.setText(message);

@@ -263,19 +263,21 @@ public class Connecte extends javax.swing.JFrame {
         if (st != null) {
 
             try {
-                //データをファイルに書き込み
+                // データをファイルに書き込み
                 file.Writefile(sv, port, db, un, pw);
-                DialogMessage.popDialog(ConmentMessage.CONNECT_SUCCESSFUL, true);
+                // 成功
+                // DialogMessage.popDialog(ConmentMessage.CONNECT_SUCCESSFUL, true);
             } catch (IOException ex) {
                 Logger.getLogger(Connecte.class.getName()).log(Level.SEVERE, null, ex);
             }
+            this.dispose();
             NewJFrame jf = new NewJFrame();
 
             DefaultTreeModel mm = Node.Model(db, st);
             jf.DataBaseTree.setModel(mm);
             jf.setVisible(true);
 
-            //DB 接続失敗
+            // DB 接続失敗
         } else {
             DialogMessage.popDialog(ConmentMessage.CONNECT_FAIL, false);
         }
@@ -291,7 +293,7 @@ public class Connecte extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_CancelActionPerformed
 
-    //画面ロード
+    // 画面ロード
     public static void load() {
         File file = new File("D:\\netbeansWorkspace\\AutoTool\\view\\src\\main\\resources\\dataInfo.txt");
         ConnectionInfo result = readFile(file);

@@ -40,6 +40,32 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AllOutputActionPerformed"/>
           </Events>
         </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="ObjectOutput">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x30aa;&#x30d6;&#x30b8;&#x30a7;&#x30af;&#x30c8;&#x751f;&#x6210;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ObjectOutputActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="RepositoryOutput">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x30ec;&#x30dd;&#x30b8;&#x30c8;&#x30ea;&#x751f;&#x6210;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RepositoryOutputActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="ObjectAll">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x30aa;&#x30d6;&#x30b8;&#x30a7;&#x30af;&#x30c8;&#x4e00;&#x62ec;&#x751f;&#x6210;"/>
+          </Properties>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="RepositoryAll">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x30ec;&#x30dd;&#x30b8;&#x30c8;&#x30ea;&#x4e00;&#x62ec;&#x751f;&#x6210;"/>
+          </Properties>
+        </MenuItem>
       </SubComponents>
     </Container>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
@@ -58,6 +84,16 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x30c4;&#x30fc;&#x30eb;(T)"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="CreateProject">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x30d7;&#x30ed;&#x30b8;&#x30a7;&#x30af;&#x30c8;&#x751f;&#x6210;"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CreateProjectActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu4">
           <Properties>

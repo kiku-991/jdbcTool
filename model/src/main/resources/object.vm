@@ -1,0 +1,29 @@
+package ${packageName};
+
+#foreach($tt in $list)
+#if(${tt.dataType}=='Date')
+import java.sql.Date;
+#break
+#end
+#end
+#foreach($tt in $list)
+#if(${tt.dataType}=='Timestamp')
+import java.sql.Timestamp;
+#break
+#end
+#end
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class ${javaClazz} {
+
+#foreach($data in $list)
+    //${data.comment}
+    private ${data.dataType} ${data.columnName};
+#end
+
+
+}

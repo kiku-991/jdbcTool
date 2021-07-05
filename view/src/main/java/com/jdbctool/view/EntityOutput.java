@@ -23,6 +23,7 @@ public class EntityOutput extends javax.swing.JFrame {
      * Creates new form EntityOutput
      */
     public static boolean flg;
+    public static int type;
 
     public EntityOutput() {
         initComponents();
@@ -102,7 +103,7 @@ public class EntityOutput extends javax.swing.JFrame {
         if (flg) {
             //one table
             String table = NewJFrame.clcikTableName;
-            tem.getColumnAndType(table, outPath, db, un, pwd);
+            tem.getColumnAndType(table, outPath, db, un, pwd, type);
 
             DialogMessage.popDialog(ConmentMessage.OUTPUTOK, flg);
 
@@ -110,7 +111,7 @@ public class EntityOutput extends javax.swing.JFrame {
             //all table
             ArrayList<String> tableList = ConnectionMethod.getAllTableList(db, un, pwd);
             for (String tb : tableList) {
-                tem.getColumnAndType(tb, outPath, db, un, pwd);
+                tem.getColumnAndType(tb, outPath, db, un, pwd, type);
             }
             DialogMessage.popDialog(ConmentMessage.OUTPUTOK, flg);
         }

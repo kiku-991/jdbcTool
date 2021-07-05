@@ -52,6 +52,10 @@ public class NewJFrame extends javax.swing.JFrame {
         JtreePopupMenu = new javax.swing.JPopupMenu();
         EntityOutput = new javax.swing.JMenuItem();
         AllOutput = new javax.swing.JMenuItem();
+        ObjectOutput = new javax.swing.JMenuItem();
+        RepositoryOutput = new javax.swing.JMenuItem();
+        ObjectAll = new javax.swing.JMenuItem();
+        RepositoryAll = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         DataBaseTree = new javax.swing.JTree();
@@ -68,6 +72,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
+        CreateProject = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
 
         Output.setText("結果出力");
@@ -93,6 +98,28 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
         JtreePopupMenu.add(AllOutput);
+
+        ObjectOutput.setText("オブジェクト生成");
+        ObjectOutput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ObjectOutputActionPerformed(evt);
+            }
+        });
+        JtreePopupMenu.add(ObjectOutput);
+
+        RepositoryOutput.setText("レポジトリ生成");
+        RepositoryOutput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RepositoryOutputActionPerformed(evt);
+            }
+        });
+        JtreePopupMenu.add(RepositoryOutput);
+
+        ObjectAll.setText("オブジェクト一括生成");
+        JtreePopupMenu.add(ObjectAll);
+
+        RepositoryAll.setText("レポジトリ一括生成");
+        JtreePopupMenu.add(RepositoryAll);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("KikuTool");
@@ -203,6 +230,15 @@ public class NewJFrame extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("ツール(T)");
+
+        CreateProject.setText("プロジェクト生成");
+        CreateProject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreateProjectActionPerformed(evt);
+            }
+        });
+        jMenu3.add(CreateProject);
+
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("ヘルプ(H)");
@@ -327,10 +363,44 @@ public class NewJFrame extends javax.swing.JFrame {
      * @param evt
      */
     private void AllOutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllOutputActionPerformed
-        int i = 2;
+        int i = -1;
         FileMethod fm = new FileMethod();
         fm.Output(i);
     }//GEN-LAST:event_AllOutputActionPerformed
+
+    /**
+     * 新規プロジェクト生成
+     *
+     * @param evt
+     */
+    private void CreateProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateProjectActionPerformed
+
+        ProjectCreate pro = new ProjectCreate();
+        pro.setVisible(true);
+    }//GEN-LAST:event_CreateProjectActionPerformed
+
+    /**
+     * オブジェクト生成
+     *
+     * @param evt
+     */
+    private void ObjectOutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ObjectOutputActionPerformed
+        int i = 2;
+        FileMethod fm = new FileMethod();
+        fm.Output(i);
+
+    }//GEN-LAST:event_ObjectOutputActionPerformed
+
+    /**
+     * レポジトリ生成
+     *
+     * @param evt
+     */
+    private void RepositoryOutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RepositoryOutputActionPerformed
+        int i = 3;
+        FileMethod fm = new FileMethod();
+        fm.Output(i);
+    }//GEN-LAST:event_RepositoryOutputActionPerformed
 
     /**
      * @param args the command line arguments
@@ -378,13 +448,18 @@ public class NewJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddDataBase;
     private javax.swing.JMenuItem AllOutput;
+    private javax.swing.JMenuItem CreateProject;
     public javax.swing.JTree DataBaseTree;
     private javax.swing.JMenuItem EntityOutput;
     private javax.swing.JButton FileChoose;
     private javax.swing.JPopupMenu JtablePopupMenu;
     private javax.swing.JPopupMenu JtreePopupMenu;
+    private javax.swing.JMenuItem ObjectAll;
+    private javax.swing.JMenuItem ObjectOutput;
     private javax.swing.JMenuItem Output;
     private javax.swing.JButton Query;
+    private javax.swing.JMenuItem RepositoryAll;
+    private javax.swing.JMenuItem RepositoryOutput;
     public static javax.swing.JTable ResultTable;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

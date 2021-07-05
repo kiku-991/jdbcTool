@@ -137,10 +137,10 @@ public class FileMethod {
         System.out.println(path);
         File file = new File(path + "\\src\\main\\resources\\dataInfo.txt");
         if (checkBeforeWritefile(file) == true) {
-            //  String url = "jdbc:postgresql://" + Server + ":" + portNum + "/" + DatabaseName;
+            // String url = "jdbc:postgresql://" + Server + ":" + portNum + "/" + DatabaseName;
             try (FileWriter filewriter = new FileWriter(file) // "jdbc:postgresql://localhost:5432/soul"
                     ) {
-                //  String url = "jdbc:postgresql://" + Server + ":" + portNum + "/" + DatabaseName;
+                // String url = "jdbc:postgresql://" + Server + ":" + portNum + "/" + DatabaseName;
                 filewriter.write(Server + ConmentMessage.CANMA + portNum + ConmentMessage.CANMA + DatabaseName + ConmentMessage.CANMA
                         + UserName + ConmentMessage.CANMA + Password);
             }
@@ -155,7 +155,7 @@ public class FileMethod {
         if (file.exists() == false) {
             return true;
         } else {
-            //  DialogMessage.popDialog("当ファイルが存在しているので、上書きしますか", false);
+            // DialogMessage.popDialog("当ファイルが存在しているので、上書きしますか", false);
             return false;
         }
 
@@ -190,7 +190,7 @@ public class FileMethod {
                 con.setDatabaseName(parts[2]);
                 con.setUserName(parts[3]);
                 con.setPassword(parts[4]);
-                //kikuのpostgres@localhost:5432
+                // kikuのpostgres@localhost:5432
                 con.setUrl(parts[2] + "の" + parts[3] + "@" + parts[0] + ":" + parts[1]);
 
             } catch (FileNotFoundException e) {
@@ -228,7 +228,7 @@ public class FileMethod {
      */
     public void Output(int outputType) {
 
-        //結果出力
+        // 結果出力
         switch (outputType) {
             case 0:
                 OutputResult result = new OutputResult();
@@ -236,14 +236,32 @@ public class FileMethod {
                 result.setVisible(true);
                 break;
             case 1: {
-                //エンティティ出力
+                // エンティティ出力
                 EntityOutput entity = new EntityOutput();
                 EntityOutput.flg = true;
+                EntityOutput.type = 0;
                 entity.setVisible(true);
                 break;
             }
+            case 2: {
+                // オブジェクト出力
+                EntityOutput entity = new EntityOutput();
+                EntityOutput.flg = true;
+                EntityOutput.type = 1;
+                entity.setVisible(true);
+                break;
+            }
+            case 3: {
+                // レポジトリ出力
+                EntityOutput entity = new EntityOutput();
+                EntityOutput.flg = true;
+                EntityOutput.type = 2;
+                entity.setVisible(true);
+                break;
+            }
+
             default: {
-                //一括出力
+                // 一括出力
                 EntityOutput entity = new EntityOutput();
                 EntityOutput.flg = false;
                 entity.setVisible(true);

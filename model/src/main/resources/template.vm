@@ -6,6 +6,13 @@ import java.sql.Date;
 #break
 #end
 #end
+#foreach($tt in $list)
+#if(${tt.dataType}=='Timestamp')
+import java.sql.Timestamp;
+#break
+#end
+#end
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -17,7 +24,7 @@ import lombok.Data;
 public class ${javaClazz} {
 
 #foreach($data in $list)
-    //${data.comment}
+    // ${data.comment}
     private ${data.dataType} ${data.columnName};
 #end
 
