@@ -116,9 +116,19 @@ public class NewJFrame extends javax.swing.JFrame {
         JtreePopupMenu.add(RepositoryOutput);
 
         ObjectAll.setText("オブジェクト一括生成");
+        ObjectAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ObjectAllActionPerformed(evt);
+            }
+        });
         JtreePopupMenu.add(ObjectAll);
 
         RepositoryAll.setText("レポジトリ一括生成");
+        RepositoryAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RepositoryAllActionPerformed(evt);
+            }
+        });
         JtreePopupMenu.add(RepositoryAll);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -363,7 +373,7 @@ public class NewJFrame extends javax.swing.JFrame {
      * @param evt
      */
     private void AllOutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllOutputActionPerformed
-        int i = -1;
+        int i = 4;
         FileMethod fm = new FileMethod();
         fm.Output(i);
     }//GEN-LAST:event_AllOutputActionPerformed
@@ -401,6 +411,29 @@ public class NewJFrame extends javax.swing.JFrame {
         FileMethod fm = new FileMethod();
         fm.Output(i);
     }//GEN-LAST:event_RepositoryOutputActionPerformed
+
+    /**
+     * Object 一括出力
+     *
+     * @param evt
+     */
+    private void ObjectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ObjectAllActionPerformed
+        int i = 5;
+        FileMethod fm = new FileMethod();
+        fm.Output(i);
+    }//GEN-LAST:event_ObjectAllActionPerformed
+
+    /**
+     * Repository　一括出力
+     *
+     * @param evt
+     */
+    private void RepositoryAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RepositoryAllActionPerformed
+
+        int i = 6;
+        FileMethod fm = new FileMethod();
+        fm.Output(i);
+    }//GEN-LAST:event_RepositoryAllActionPerformed
 
     /**
      * @param args the command line arguments

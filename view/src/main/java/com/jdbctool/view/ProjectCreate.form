@@ -111,6 +111,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x53c2;&#x7167;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="referenceActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="groupLabel">
       <Properties>
@@ -130,6 +133,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x5b8c;&#x4e86;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="finishActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

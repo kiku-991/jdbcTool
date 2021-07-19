@@ -70,7 +70,7 @@ public class TemplateReader {
 
             rset = stmt.executeQuery(coulmnSql);
 
-            String className = getClassName(tableName);
+            String className = "";
 
             //SELECT結果の受け取り
             while (rset.next()) {
@@ -98,16 +98,19 @@ public class TemplateReader {
                 case 0:
                     outputType = "eneity";
                     packageName = pcName + "." + outputType;
+                    className = getClassName(tableName) + "Entity";
                     template = readSource(packageName, tableName, className, list, t);
                     break;
                 case 1:
                     outputType = "object";
                     packageName = pcName + "." + outputType;
+                    className = getClassName(tableName) + "Object";
                     template = readSource(packageName, tableName, className, list, t);
                     break;
                 default:
-                    outputType = "repositoy";
+                    outputType = "repository";
                     packageName = pcName + "." + outputType;
+                    className = getClassName(tableName) + "Repository";
                     template = readSource(packageName, tableName, className, list, t);
                     break;
             }
@@ -131,7 +134,7 @@ public class TemplateReader {
      * @param tableName 表名
      * @return
      */
-    private String getClassName(String tableName) {
+    private static String getClassName(String tableName) {
         String newClassName = "";
         int i = tableName.indexOf("_");
         if (i < 0) {
@@ -310,6 +313,8 @@ public class TemplateReader {
         context.put("packageName", packageName);
         context.put("dbname", tableName);
         context.put("javaClazz", className);
+        String objectName = getClassName(tableName);
+        context.put("tableName", objectName);
         context.put("list", list);
 
         StringWriter writer = new StringWriter();

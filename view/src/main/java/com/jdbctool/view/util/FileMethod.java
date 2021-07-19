@@ -63,6 +63,7 @@ public class FileMethod {
         chooser.setCurrentDirectory(new java.io.File("."));
 
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
         //
         // disable the "All files" option.
         //
@@ -260,10 +261,29 @@ public class FileMethod {
                 break;
             }
 
-            default: {
-                // 一括出力
+            case 4: {
+                // Entity一括出力
                 EntityOutput entity = new EntityOutput();
                 EntityOutput.flg = false;
+                EntityOutput.type = 0;
+                entity.setVisible(true);
+                break;
+            }
+
+            case 5: {
+                // Object一括出力
+                EntityOutput entity = new EntityOutput();
+                EntityOutput.flg = false;
+                EntityOutput.type = 1;
+                entity.setVisible(true);
+                break;
+            }
+
+            case 6: {
+                // repository一括出力
+                EntityOutput entity = new EntityOutput();
+                EntityOutput.flg = false;
+                EntityOutput.type = 2;
                 entity.setVisible(true);
                 break;
             }

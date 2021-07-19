@@ -5,6 +5,8 @@
  */
 package com.jdbctool.view;
 
+import com.jdbctool.view.util.FileMethod;
+
 /**
  *
  */
@@ -46,12 +48,22 @@ public class ProjectCreate extends javax.swing.JFrame {
         locationLabel.setText("ロケーション：");
 
         reference.setText("参照");
+        reference.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                referenceActionPerformed(evt);
+            }
+        });
 
         groupLabel.setText("グループ");
 
         deliverableLabel.setText("成果物");
 
         finish.setText("完了");
+        finish.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finishActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,6 +123,18 @@ public class ProjectCreate extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void referenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_referenceActionPerformed
+
+        String forderName = FileMethod.getDirectory(this);
+        location.setText(forderName);
+
+    }//GEN-LAST:event_referenceActionPerformed
+
+    private void finishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishActionPerformed
+        // TODO add your handling code here:
+        //生成プロジェクト
+    }//GEN-LAST:event_finishActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField deliverable;
